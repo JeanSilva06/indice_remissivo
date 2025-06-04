@@ -14,7 +14,8 @@ public class LeitorTexto {
 
                 for (String palavra : palavras) {
                     if (!palavra.isEmpty()) {
-                        tabela.inserirPalavra(palavra, numeroLinha);
+                        String normalizada = palavraSingular(palavra.toLowerCase());
+                        tabela.inserirPalavra(normalizada, numeroLinha);
                     }
                 }
                 numeroLinha++;
@@ -24,5 +25,18 @@ public class LeitorTexto {
         }
 
         return tabela;
+    }
+
+    private static String palavraSingular(String palavra) {
+        if (palavra.endsWith("ões")) {
+            return palavra.substring(0, palavra.length() - 3) + "ão";
+        }
+        if (palavra.endsWith("ães")) {
+            return palavra.substring(0, palavra.length() - 3) + "ão";
+        }
+        if (palavra.endsWith("s") && palavra.length() > 3) {
+            return palavra.substring(0, palavra.length() - 1);
+        }
+        return palavra;
     }
 }
